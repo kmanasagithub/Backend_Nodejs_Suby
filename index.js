@@ -8,7 +8,7 @@ const productRoutes = require("./routes/productRoutes")
 const path = require('path');
 
 const app = express()
-const port=8000;
+const port= process.env.PORT || 8000;
 
 dotEnv.config()
 
@@ -22,7 +22,9 @@ app.use('/firm',firmRoutes);
 app.use('/product',productRoutes);
 app.use('/uploads',express.static('uploads'));
 
-
+app.get("/",(req,res) => {
+    res.send('<h1>Welcome to Suby</h1>')
+})
 app.listen(port,() => {
     console.log(`Server is listening at port ${port}`)
 })
