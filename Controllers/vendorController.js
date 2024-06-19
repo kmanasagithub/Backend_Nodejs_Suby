@@ -13,7 +13,7 @@ const vendorRegistor =async(req,res) => {
         const vendorEmail = await Vendor.findOne({email});
 
         if(vendorEmail){
-            return res.status(400).join("Email already taken");
+            return res.status(400).json("Email already taken");
         }
         const hashedPassword = await bcrypt.hash(password,10);
 
