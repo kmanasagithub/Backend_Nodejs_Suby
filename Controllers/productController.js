@@ -1,13 +1,14 @@
 const Firm = require("../models/Firm");
 const Product = require("../models/Product");
 const multer = require("multer");
+const path = require("path");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/') // Uploads directory
     },
     filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)) // File name
+      cb(null,Date.now() + path.extname(file.originalname)) // File name
     }
   })
   
@@ -26,7 +27,7 @@ const addProduct = async(req,res) => {
         }
 
         const product = new Product({
-            productName,price,category,image,bestSeller,description,firm:firm._id
+            productName,price,category,bestSeller,description,image,firm:firm._id
         })
 
         const savedProduct = await product.save();
@@ -70,7 +71,7 @@ const deleteProductById = async(req,res) => {
       return res.status(400).json({error:"No Product Found"})
     }
 
-    res.status(400).json({message:"Deleted Successfully"})
+    res.status(200).json({message:"Producted Deleted Successfully"})
   }
   catch(error){
     console.log("Error:" +error);
